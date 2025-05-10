@@ -92,6 +92,7 @@ public class OrderService {
         response.setOrderShippingAddress(order.getShippingAddress());
         response.setOrderCreateAt(order.getCreateAt());
         response.setOrderUpdateAt(order.getUpdateAt());
+        response.setOrderTotalPrice(order.getTotalPrice());
 
         return response;
     }

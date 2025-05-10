@@ -26,9 +26,9 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getAllReview());
     }
 
-    @GetMapping("/{id}")
-    public ReviewResponse getReviewById(@PathVariable Integer id) {
-        return reviewService.getReviewById(id);
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<ReviewResponse>> getReviewsByCustomer(@PathVariable Integer customerId) {
+        return ResponseEntity.ok(reviewService.getReviewsByCustomerId(customerId));
     }
 
     @PostMapping

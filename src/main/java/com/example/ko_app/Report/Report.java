@@ -1,10 +1,10 @@
 package com.example.ko_app.Report;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.example.ko_app.Customer.Customer;
+import jakarta.persistence.*;
 
 import java.util.Date;
+
 @Entity
 public class Report {
     @Id
@@ -15,13 +15,19 @@ public class Report {
     private String createdAt;
     private String updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
     public Report(){}
-    public Report(Integer id, String title, String description, Date createdAt, Date updatedAt) {
+
+    public Report(Integer id, String title, String description, String createdAt, String updatedAt, Customer customer) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.createdAt = String.valueOf(createdAt);
-        this.updatedAt = String.valueOf(updatedAt);
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.customer = customer;
     }
 
     public Integer getId() {
@@ -64,14 +70,23 @@ public class Report {
         this.updatedAt = updatedAt;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         return "Report{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", customer=" + customer +
                 '}';
     }
 }

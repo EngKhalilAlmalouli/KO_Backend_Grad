@@ -1,6 +1,8 @@
 package com.example.ko_app.Review;
 
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
+import com.example.ko_app.Customer.Customer;
+import com.example.ko_app.Customer.CustomerRepository;
 import com.example.ko_app.Report.Report;
 import com.example.ko_app.Report.ReportRepository;
 import com.example.ko_app.Report.ReportRequest;
@@ -17,11 +19,14 @@ import java.util.stream.Collectors;
 @Service
 public class ReviewService {
     private final ReviewRepository reviewRepository;
+    private final CustomerRepository customerRepository;
+
     private final ObjectValidator<ReviewRequest> validator;
 
     // Constructor for dependency injection
-    public ReviewService(ReviewRepository reviewRepository, ObjectValidator<ReviewRequest> validator) {
+    public ReviewService(ReviewRepository reviewRepository, CustomerRepository customerRepository, ObjectValidator<ReviewRequest> validator) {
         this.reviewRepository = reviewRepository;
+        this.customerRepository = customerRepository;
         this.validator = validator;
     }
 
@@ -30,18 +35,28 @@ public class ReviewService {
     }
 
     // getReviewByID
-    public ReviewResponse getReviewById(Integer id) {
-        return reviewRepository.findById(id)
+//    public ReviewResponse getReviewById(Integer id) {
+//        return reviewRepository.findById(id)
+//                .map(this::mapToResponse)
+//                .orElseThrow(() -> new RuntimeException("Review not found"));
+//    }
+
+    public List<ReviewResponse> getReviewsByCustomerId(Integer customerId) {
+        return reviewRepository.findByCustomerId(customerId).stream()
                 .map(this::mapToResponse)
-                .orElseThrow(() -> new RuntimeException("Review not found"));
+                .collect(Collectors.toList());
     }
 
     // createReview
     public ReviewResponse createReview(ReviewRequest request) {
+        Customer customer = customerRepository.findById(request.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
         validator.validate(request);
         Review review = new Review();
         review.setTitle(request.getReviewTitle());
         review.setDescription(request.getReviewDescription());
+        review.setCustomer(customer);
         reviewRepository.save(review);
         return mapToResponse(review);
     }
@@ -73,6 +88,7 @@ public class ReviewService {
         ReviewResponse response = new ReviewResponse();
         response.setReviewTitle(review.getTitle());
         response.setReviewDescription(review.getDescription());
+        response.setCustomerId(review.getCustomer().getId());
         return response;
     }
 }

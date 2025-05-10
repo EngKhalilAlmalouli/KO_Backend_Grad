@@ -1,8 +1,7 @@
 package com.example.ko_app.Point;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.example.ko_app.Customer.Customer;
+import jakarta.persistence.*;
 
 import java.util.Date;
 @Entity
@@ -12,15 +11,22 @@ public class Point {
     private Integer id;
     private String name;
     private Integer value;
-    private Date createdAt;
+    private String createdAt;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     public Point() {}
 
-    public Point(Integer id, String name, Integer value, Date createdAt) {
+    public Point(Integer id, String name, Integer value, String createdAt, Customer customer) {
         this.id = id;
         this.name = name;
         this.value = value;
         this.createdAt = createdAt;
+        this.customer = customer;
     }
 
     public Integer getId() {
@@ -47,12 +53,20 @@ public class Point {
         this.value = value;
     }
 
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
@@ -61,7 +75,8 @@ public class Point {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", value=" + value +
-                ", createdAt=" + createdAt +
+                ", createdAt='" + createdAt + '\'' +
+                ", customer=" + customer +
                 '}';
     }
 }

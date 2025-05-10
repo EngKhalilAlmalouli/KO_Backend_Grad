@@ -1,6 +1,8 @@
 package com.example.ko_app.Point;
 
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
+import com.example.ko_app.Customer.Customer;
+import com.example.ko_app.Customer.CustomerRepository;
 import com.example.ko_app.Products.Product;
 import com.example.ko_app.Products.ProductRepository;
 import com.example.ko_app.Products.ProductRequest;
@@ -17,11 +19,13 @@ import java.util.stream.Collectors;
 @Service
 public class PointService {
     private final PointRepository pointRepository; ;
+    private final CustomerRepository customerRepository;
     private final ObjectValidator<PointRequest> validator;
 
     // Constructor for dependency injection
-    public PointService(PointRepository pointRepository, ObjectValidator<PointRequest> validator) {
+    public PointService(PointRepository pointRepository, CustomerRepository customerRepository, ObjectValidator<PointRequest> validator) {
         this.pointRepository = pointRepository;
+        this.customerRepository = customerRepository;
         this.validator = validator;
     }
 
@@ -38,11 +42,16 @@ public class PointService {
 
     // createPoint
     public PointResponse createPoint(PointRequest request) {
+        Customer customer = customerRepository.findById(request.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
         validator.validate(request);
+
+
         Point point = new Point();
         point.setName(request.getPointName());
         point.setValue(request.getPointValue());
         point.setCreatedAt(request.getPointCreatedAt());
+        point.setCustomer(customer);
 
         pointRepository.save(point);
         return mapToResponse(point);
@@ -78,6 +87,7 @@ public class PointService {
         response.setPointName(point.getName());
         response.setPointValue(point.getValue());
         response.getPointCreatedAt(point.getCreatedAt());
+        response.setCustomerId(point.getCustomer().getId());
 
         return response;
     }

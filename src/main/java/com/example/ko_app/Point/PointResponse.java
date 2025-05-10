@@ -1,18 +1,18 @@
 package com.example.ko_app.Point;
 
-import java.util.Date;
-
 public class PointResponse {
     private String pointName;
     private Integer pointValue;
-    private Date pointCreatedAt;
+    private String pointCreatedAt;
+    private Integer customerId;
 
     public PointResponse(){}
 
-    public PointResponse(String pointName, Integer pointValue, Date pointCreatedAt) {
+    public PointResponse(String pointName, Integer pointValue, String pointCreatedAt, Integer customerId) {
         this.pointName = pointName;
         this.pointValue = pointValue;
         this.pointCreatedAt = pointCreatedAt;
+        this.customerId = customerId;
     }
 
     public String getPointName() {
@@ -31,12 +31,20 @@ public class PointResponse {
         this.pointValue = pointValue;
     }
 
-    public Date getPointCreatedAt(Date createdAt) {
+    public String getPointCreatedAt(String createdAt) {
         return pointCreatedAt;
     }
 
-    public void setPointCreatedAt(Date pointCreatedAt) {
+    public void setPointCreatedAt(String pointCreatedAt) {
         this.pointCreatedAt = pointCreatedAt;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     @Override
@@ -44,7 +52,8 @@ public class PointResponse {
         return "PointResponse{" +
                 "pointName='" + pointName + '\'' +
                 ", pointValue=" + pointValue +
-                ", pointCreationAt=" + pointCreatedAt +
+                ", pointCreatedAt='" + pointCreatedAt + '\'' +
+                ", customerId=" + customerId +
                 '}';
     }
 }

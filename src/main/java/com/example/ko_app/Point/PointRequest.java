@@ -5,14 +5,16 @@ import java.util.Date;
 public class PointRequest {
     private String pointName;
     private Integer pointValue;
-    private Date pointCreatedAt;
+    private String pointCreatedAt;
+    private Integer customerId;
 
     public PointRequest(){}
 
-    public PointRequest(String pointName, Integer pointValue, Date pointCreationAt) {
+    public PointRequest(String pointName, Integer pointValue, String pointCreatedAt, Integer customerId) {
         this.pointName = pointName;
         this.pointValue = pointValue;
-        this.pointCreatedAt = pointCreationAt;
+        this.pointCreatedAt = pointCreatedAt;
+        this.customerId = customerId;
     }
 
     public String getPointName() {
@@ -31,12 +33,20 @@ public class PointRequest {
         this.pointValue = pointValue;
     }
 
-    public Date getPointCreatedAt() {
+    public String getPointCreatedAt() {
         return pointCreatedAt;
     }
 
-    public void setPointCreatedAt(Date pointCreatedAt) {
+    public void setPointCreatedAt(String pointCreatedAt) {
         this.pointCreatedAt = pointCreatedAt;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     @Override
@@ -44,7 +54,8 @@ public class PointRequest {
         return "PointRequest{" +
                 "pointName='" + pointName + '\'' +
                 ", pointValue=" + pointValue +
-                ", pointCreationAt=" + pointCreatedAt +
+                ", pointCreatedAt='" + pointCreatedAt + '\'' +
+                ", customerId=" + customerId +
                 '}';
     }
 }

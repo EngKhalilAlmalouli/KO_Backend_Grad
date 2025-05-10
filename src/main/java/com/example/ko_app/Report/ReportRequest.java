@@ -7,13 +7,16 @@ public class ReportRequest {
     private String reportDescription;
     private String reportCreatedAt;
     private String reportUpdatedAt;
+    private Integer customerId;
 
     public ReportRequest() {}
-    public ReportRequest(String reportTitle, String reportDescription, Date reportCreatedAt, String reportUpdatedAt) {
+
+    public ReportRequest(String reportTitle, String reportDescription, String reportCreatedAt, String reportUpdatedAt, Integer customerId) {
         this.reportTitle = reportTitle;
         this.reportDescription = reportDescription;
-        this.reportCreatedAt = String.valueOf(reportCreatedAt);
+        this.reportCreatedAt = reportCreatedAt;
         this.reportUpdatedAt = reportUpdatedAt;
+        this.customerId = customerId;
     }
 
     public String getReportTitle() {
@@ -48,13 +51,22 @@ public class ReportRequest {
         this.reportUpdatedAt = reportUpdatedAt;
     }
 
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
     @Override
     public String toString() {
         return "ReportRequest{" +
                 "reportTitle='" + reportTitle + '\'' +
                 ", reportDescription='" + reportDescription + '\'' +
-                ", reportCreatedAt=" + reportCreatedAt +
+                ", reportCreatedAt='" + reportCreatedAt + '\'' +
                 ", reportUpdatedAt='" + reportUpdatedAt + '\'' +
+                ", customerId=" + customerId +
                 '}';
     }
 }

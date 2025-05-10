@@ -1,6 +1,9 @@
 package com.example.ko_app.Customer;
 
 import com.example.ko_app.Order.Order;
+import com.example.ko_app.Point.Point;
+import com.example.ko_app.Report.Report;
+import com.example.ko_app.Review.Review;
 import jakarta.persistence.*;
 import org.springframework.scheduling.config.Task;
 
@@ -25,6 +28,14 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Point> points = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Report> reports = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
 
     public Customer() {}

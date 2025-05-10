@@ -8,15 +8,18 @@ public class ReportResponse {
     private String ReportDescription;
     private String ReportCreatedAt;
     private String ReportUpdatedAt;
+    private Integer customerId;
+
 
     public ReportResponse() {}
 
-    public ReportResponse(Integer reportId, String reportTitle, String reportDescription, Date reportCreatedAt, Date reportUpdatedAt) {
+    public ReportResponse(Integer reportId, String reportTitle, String reportDescription, String reportCreatedAt, String reportUpdatedAt, Integer customerId) {
         ReportId = reportId;
         ReportTitle = reportTitle;
         ReportDescription = reportDescription;
-        ReportCreatedAt = String.valueOf(reportCreatedAt);
-        ReportUpdatedAt = String.valueOf(reportUpdatedAt);
+        ReportCreatedAt = reportCreatedAt;
+        ReportUpdatedAt = reportUpdatedAt;
+        this.customerId = customerId;
     }
 
     public Integer getReportId() {
@@ -59,14 +62,23 @@ public class ReportResponse {
         ReportUpdatedAt = reportUpdatedAt;
     }
 
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
     @Override
     public String toString() {
         return "ReportResponse{" +
                 "ReportId=" + ReportId +
                 ", ReportTitle='" + ReportTitle + '\'' +
                 ", ReportDescription='" + ReportDescription + '\'' +
-                ", ReportCreatedAt=" + ReportCreatedAt +
-                ", ReportUpdatedAt=" + ReportUpdatedAt +
+                ", ReportCreatedAt='" + ReportCreatedAt + '\'' +
+                ", ReportUpdatedAt='" + ReportUpdatedAt + '\'' +
+                ", customerId=" + customerId +
                 '}';
     }
 }

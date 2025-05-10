@@ -17,33 +17,50 @@ import java.util.stream.Collectors;
 @Service
 public class ReportService {
     private final ReportRepository reportRepository;
+    private final CustomerRepository customerRepository;
+
     private final ObjectValidator<ReportRequest> validator;
 
     // Constructor for dependency injection
-    public ReportService(ReportRepository reportRepository, ObjectValidator<ReportRequest> validator) {
+    public ReportService(ReportRepository reportRepository, CustomerRepository customerRepository, ObjectValidator<ReportRequest> validator) {
         this.reportRepository = reportRepository;
+        this.customerRepository = customerRepository;
         this.validator = validator;
     }
+
 
     public List<?> getAllReport() {
         return reportRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
     // getReportByID
-    public ReportResponse getReportById(Integer id) {
-        return reportRepository.findById(id)
+//    public ReportResponse getReportById(Integer id) {
+//        return reportRepository.findById(id)
+//                .map(this::mapToResponse)
+//                .orElseThrow(() -> new RuntimeException("Report not found"));
+//    }
+    public List<ReportResponse> getReportsByCustomerId(Integer customerId) {
+        List<Report> reports = reportRepository.findByCustomerId(customerId);
+        return reports.stream()
                 .map(this::mapToResponse)
-                .orElseThrow(() -> new RuntimeException("Report not found"));
+                .collect(Collectors.toList());
     }
+
+
 
     // createReport
     public ReportResponse createReport(ReportRequest request) {
+        Customer customer = customerRepository.findById(request.getCustomerId())
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
         validator.validate(request);
+
         Report report = new Report();
         report.setTitle(request.getReportTitle());
         report.setDescription(request.getReportDescription());
         report.setCreatedAt(request.getReportCreatedAt());
         report.setUpdatedAt(request.getReportUpdatedAt());
+        report.setCustomer(customer);
         reportRepository.save(report);
         return mapToResponse(report);
     }
@@ -79,6 +96,7 @@ public class ReportService {
         response.setReportDescription(report.getDescription());
         response.setReportCreatedAt(report.getCreatedAt());
         response.setReportUpdatedAt(report.getUpdatedAt());
+        response.setCustomerId(report.getCustomer().getId());
         return response;
     }
 }

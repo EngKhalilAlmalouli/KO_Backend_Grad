@@ -26,9 +26,9 @@ public class ReportController {
         return ResponseEntity.ok(reportService.getAllReport());
     }
 
-    @GetMapping("/{id}")
-    public ReportResponse getReportById(@PathVariable Integer id) {
-        return reportService.getReportById(id);
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<ReportResponse>> getReportsByCustomer(@PathVariable Integer customerId) {
+        return ResponseEntity.ok(reportService.getReportsByCustomerId(customerId));
     }
 
     @PostMapping
