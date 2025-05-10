@@ -11,10 +11,12 @@ public class OrderRequest {
     private String orderShippingAddress;
     private Date orderCreateAt;
     private Date orderUpdateAt;
+    private Integer customerId; // لربط الطلب بالزبون
+
 
     public OrderRequest() {}
 
-    public OrderRequest(Integer orderQuantity, Double orderSubTotal, Double orderTotal, String orderStatus, Double orderTotalPrice, String orderShippingAddress, Date orderCreateAt, Date orderUpdateAt) {
+    public OrderRequest(Integer orderQuantity, Double orderSubTotal, Double orderTotal, String orderStatus, Double orderTotalPrice, String orderShippingAddress, Date orderCreateAt, Date orderUpdateAt, Integer customerId) {
         this.orderQuantity = orderQuantity;
         this.orderSubTotal = orderSubTotal;
         this.orderTotal = orderTotal;
@@ -23,6 +25,7 @@ public class OrderRequest {
         this.orderShippingAddress = orderShippingAddress;
         this.orderCreateAt = orderCreateAt;
         this.orderUpdateAt = orderUpdateAt;
+        this.customerId = customerId;
     }
 
     public Integer getOrderQuantity() {
@@ -89,6 +92,14 @@ public class OrderRequest {
         this.orderUpdateAt = orderUpdateAt;
     }
 
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
     @Override
     public String toString() {
         return "OrderRequest{" +
@@ -100,6 +111,7 @@ public class OrderRequest {
                 ", orderShippingAddress='" + orderShippingAddress + '\'' +
                 ", orderCreateAt=" + orderCreateAt +
                 ", orderUpdateAt=" + orderUpdateAt +
+                ", customerId=" + customerId +
                 '}';
     }
 }

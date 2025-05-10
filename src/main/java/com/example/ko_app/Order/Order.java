@@ -1,18 +1,15 @@
 package com.example.ko_app.Order;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.example.ko_app.Customer.Customer;
+import jakarta.persistence.*;
 
 import java.util.Date;
 @Entity
 public class Order {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    //    private Integer customerId;
-//    private Integer productId;
     private Integer quantity;
     private Double subTotal;
     private Double total;
@@ -22,9 +19,14 @@ public class Order {
     private Date createAt;
     private Date updateAt;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+
     public Order() {}
 
-    public Order(Integer id, Integer quantity, Double subTotal, Double total, String status, Double totalPrice, String shippingAddress, Date createAt, Date updateAt) {
+    public Order(Integer id, Integer quantity, Double subTotal, Double total, String status, Double totalPrice, String shippingAddress, Date createAt, Date updateAt, Customer customer) {
         this.id = id;
         this.quantity = quantity;
         this.subTotal = subTotal;
@@ -34,6 +36,7 @@ public class Order {
         this.shippingAddress = shippingAddress;
         this.createAt = createAt;
         this.updateAt = updateAt;
+        this.customer = customer;
     }
 
     public Integer getId() {
@@ -108,6 +111,14 @@ public class Order {
         this.updateAt = updateAt;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -120,6 +131,7 @@ public class Order {
                 ", shippingAddress='" + shippingAddress + '\'' +
                 ", createAt=" + createAt +
                 ", updateAt=" + updateAt +
+                ", customer=" + customer +
                 '}';
     }
 }

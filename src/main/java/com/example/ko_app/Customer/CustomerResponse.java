@@ -24,6 +24,10 @@
 
 package com.example.ko_app.Customer;
 
+import com.example.ko_app.Order.OrderResponse;
+
+import java.util.List;
+
 public class CustomerResponse {
     private Integer customerId;
     private String username;
@@ -34,14 +38,13 @@ public class CustomerResponse {
     private String phoneNumber;
     private String address;
     private String image;
+    private List<OrderResponse> orders;
 
     // Default constructor
     public CustomerResponse() {
     }
 
-    // All-args constructor
-    public CustomerResponse(Integer customerId, String username, String firstName, String lastName,
-                            String email, String password, String phoneNumber, String address, String image) {
+    public CustomerResponse(Integer customerId, String username, String firstName, String lastName, String email, String password, String phoneNumber, String address, String image, List<OrderResponse> orders) {
         this.customerId = customerId;
         this.username = username;
         this.firstName = firstName;
@@ -51,9 +54,9 @@ public class CustomerResponse {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.image = image;
+        this.orders = orders;
     }
 
-    // Getter and Setter methods
     public Integer getCustomerId() {
         return customerId;
     }
@@ -126,6 +129,14 @@ public class CustomerResponse {
         this.image = image;
     }
 
+    public List<OrderResponse> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderResponse> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "CustomerResponse{" +
@@ -138,6 +149,9 @@ public class CustomerResponse {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", image='" + image + '\'' +
+                ", orders=" + orders +
                 '}';
     }
 }
+
+

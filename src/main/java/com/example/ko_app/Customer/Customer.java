@@ -1,45 +1,16 @@
 package com.example.ko_app.Customer;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.example.ko_app.Order.Order;
+import jakarta.persistence.*;
+import org.springframework.scheduling.config.Task;
 
-//package com.example.KO_Recycle_App.Customer;
-//
-//import jakarta.persistence.Column;
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.Id;
-//import lombok.AllArgsConstructor;
-//import lombok.Builder;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//
-//@Entity
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@Builder
-//public class Customer {
-//    @Id
-//    @GeneratedValue
-//    private Integer id;
-//    private String userName;
-//    private String firstName;
-//    private String lastName;
-//    private String address;
-//    private String phone;
-//    private String email;
-//    private String password;
-//    private String image;
-//
-//
-//
-//}
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String firstName;
     private String lastName;
@@ -49,6 +20,12 @@ public class Customer {
     private String email;
     private String password;
     private String image;
+
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
+
+
 
     public Customer() {}
 
@@ -62,7 +39,15 @@ public class Customer {
         this.password = password;
         this.image = image;
     }
-    // Getter and Setter methods for each field
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -127,12 +112,12 @@ public class Customer {
         this.image = image;
     }
 
-    public Integer getId() {
-        return id;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
@@ -149,5 +134,7 @@ public class Customer {
                 ", image='" + image + '\'' +
                 '}';
     }
+
+
 }
 
