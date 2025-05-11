@@ -1,6 +1,7 @@
 package com.example.ko_app.Point;
 
 public class PointResponse {
+    private Integer pointId;
     private String pointName;
     private Integer pointValue;
     private String pointCreatedAt;
@@ -8,11 +9,20 @@ public class PointResponse {
 
     public PointResponse(){}
 
-    public PointResponse(String pointName, Integer pointValue, String pointCreatedAt, Integer customerId) {
+    public PointResponse(Integer pointId, String pointName, Integer pointValue, String pointCreatedAt, Integer customerId) {
+        this.pointId = pointId;
         this.pointName = pointName;
         this.pointValue = pointValue;
         this.pointCreatedAt = pointCreatedAt;
         this.customerId = customerId;
+    }
+
+    public Integer getPointId() {
+        return pointId;
+    }
+
+    public void setPointId(Integer pointId) {
+        this.pointId = pointId;
     }
 
     public String getPointName() {
@@ -50,7 +60,8 @@ public class PointResponse {
     @Override
     public String toString() {
         return "PointResponse{" +
-                "pointName='" + pointName + '\'' +
+                "pointId=" + pointId +
+                ", pointName='" + pointName + '\'' +
                 ", pointValue=" + pointValue +
                 ", pointCreatedAt='" + pointCreatedAt + '\'' +
                 ", customerId=" + customerId +

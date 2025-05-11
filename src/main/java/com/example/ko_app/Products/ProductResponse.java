@@ -1,21 +1,33 @@
 package com.example.ko_app.Products;
 
 public class ProductResponse {
+    private Integer productId;
     private String productName;
     private String productDescription;
     private Double productPrice;
     private Integer productQuantity;
     private String productImage;
+    private Integer categoryId;
 
     public ProductResponse(){}
 
-    public ProductResponse(String productName, String productDescription, Double productPrice, Integer productQuantity, String productImage) {
 
+    public ProductResponse(Integer productId, String productName, String productDescription, Double productPrice, Integer productQuantity, String productImage, Integer categoryId) {
+        this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
         this.productQuantity = productQuantity;
         this.productImage = productImage;
+        this.categoryId = categoryId;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getProductName() {
@@ -58,14 +70,24 @@ public class ProductResponse {
         this.productImage = productImage;
     }
 
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public String toString() {
         return "ProductResponse{" +
-                "productName='" + productName + '\'' +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
                 ", productDescription='" + productDescription + '\'' +
                 ", productPrice=" + productPrice +
                 ", productQuantity=" + productQuantity +
                 ", productImage='" + productImage + '\'' +
+                ", categoryId=" + categoryId +
                 '}';
     }
 }

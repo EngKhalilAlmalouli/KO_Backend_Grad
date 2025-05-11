@@ -1,5 +1,7 @@
 package com.example.ko_app.Products;
 
+import com.example.ko_app.Categories.Category;
+import com.example.ko_app.Categories.CategoryRepository;
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
 import com.example.ko_app.Customer.Customer;
 import com.example.ko_app.Customer.CustomerRepository;
@@ -17,11 +19,14 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+
     private final ObjectValidator<ProductRequest> validator;
 
     // Constructor for dependency injection
-    public ProductService(ProductRepository productRepository, ObjectValidator<ProductRequest> validator) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository, ObjectValidator<ProductRequest> validator) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
         this.validator = validator;
     }
 
@@ -30,21 +35,32 @@ public class ProductService {
     }
 
     // getProductrByID
-    public ProductResponse getProductById(Integer id) {
-        return productRepository.findById(id)
-                .map(this::mapToResponse)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+//    public ProductResponse getProductById(Integer id) {
+//        return productRepository.findById(id)
+//                .map(this::mapToResponse)
+//                .orElseThrow(() -> new RuntimeException("Product not found"));
+//    }
+
+    public List<ProductResponse> getProductsByCategory(Integer categoryId) {
+        List<Product> products = productRepository.findByCategoryId(categoryId);
+        return products.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
     // createProduct
     public ProductResponse createProdact(ProductRequest request) {
+        Category category = categoryRepository.findById(request.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
         validator.validate(request);
+
         Product product = new Product();
         product.setProduct_name(request.getProductName());
         product.setProduct_description(request.getProductDescription());
         product.setProduct_price(request.getProductPrice());
         product.setProduct_quantity(request.getProductQuantity());
         product.setProduct_image(request.getProductImage());
+        product.setCategory(category);
+
 
         productRepository.save(product);
         return mapToResponse(product);
@@ -84,6 +100,8 @@ public class ProductService {
         response.setProductPrice(product.getProduct_price());
         response.setProductQuantity(product.getProduct_quantity());
         response.setProductImage(product.getProduct_image());
+        response.setCategoryId(product.getCategory().getId());
+
 
         return response;
     }

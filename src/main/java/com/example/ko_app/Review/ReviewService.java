@@ -34,12 +34,13 @@ public class ReviewService {
         return reviewRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
-    // getReviewByID
-//    public ReviewResponse getReviewById(Integer id) {
-//        return reviewRepository.findById(id)
-//                .map(this::mapToResponse)
-//                .orElseThrow(() -> new RuntimeException("Review not found"));
-//    }
+
+    // getReportByID
+    public ReviewResponse getReviewById(Integer id) {
+        return reviewRepository.findById(id)
+                .map(this::mapToResponse)
+                .orElseThrow(() -> new RuntimeException("Review not found"));
+    }
 
     public List<ReviewResponse> getReviewsByCustomerId(Integer customerId) {
         return reviewRepository.findByCustomerId(customerId).stream()

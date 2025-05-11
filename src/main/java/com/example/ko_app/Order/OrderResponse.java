@@ -3,6 +3,7 @@ package com.example.ko_app.Order;
 import java.util.Date;
 
 public class OrderResponse {
+    private Integer orderId;
     private Integer orderQuantity;
     private Double orderSubTotal;
     private Double orderTotal;
@@ -11,10 +12,16 @@ public class OrderResponse {
     private String orderShippingAddress;
     private Date orderCreateAt;
     private Date orderUpdateAt;
+    private Integer customerId;
+    private Integer productId;
+
+
 
     public OrderResponse() {}
 
-    public OrderResponse(Integer orderQuantity, Double orderSubTotal, Double orderTotal, String orderStatus, Double orderTotalPrice, String orderShippingAddress, Date orderCreateAt, Date orderUpdateAt) {
+
+    public OrderResponse(Integer orderId, Integer orderQuantity, Double orderSubTotal, Double orderTotal, String orderStatus, Double orderTotalPrice, String orderShippingAddress, Date orderCreateAt, Date orderUpdateAt, Integer customerId, Integer productId) {
+        this.orderId = orderId;
         this.orderQuantity = orderQuantity;
         this.orderSubTotal = orderSubTotal;
         this.orderTotal = orderTotal;
@@ -23,6 +30,16 @@ public class OrderResponse {
         this.orderShippingAddress = orderShippingAddress;
         this.orderCreateAt = orderCreateAt;
         this.orderUpdateAt = orderUpdateAt;
+        this.customerId = customerId;
+        this.productId = productId;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getOrderQuantity() {
@@ -89,10 +106,27 @@ public class OrderResponse {
         this.orderUpdateAt = orderUpdateAt;
     }
 
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
     @Override
     public String toString() {
         return "OrderResponse{" +
-                "orderQuantity=" + orderQuantity +
+                "orderId=" + orderId +
+                ", orderQuantity=" + orderQuantity +
                 ", orderSubTotal=" + orderSubTotal +
                 ", orderTotal=" + orderTotal +
                 ", orderStatus='" + orderStatus + '\'' +
@@ -100,6 +134,8 @@ public class OrderResponse {
                 ", orderShippingAddress='" + orderShippingAddress + '\'' +
                 ", orderCreateAt=" + orderCreateAt +
                 ", orderUpdateAt=" + orderUpdateAt +
+                ", customerId=" + customerId +
+                ", productId=" + productId +
                 '}';
     }
 }

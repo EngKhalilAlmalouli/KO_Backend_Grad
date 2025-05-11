@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class Review {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
     private String description;

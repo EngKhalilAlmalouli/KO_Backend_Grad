@@ -7,6 +7,8 @@ import com.example.ko_app.Products.Product;
 import com.example.ko_app.Products.ProductRepository;
 import com.example.ko_app.Products.ProductRequest;
 import com.example.ko_app.Products.ProductResponse;
+import com.example.ko_app.Report.Report;
+import com.example.ko_app.Report.ReportResponse;
 import com.example.ko_app.validation.ObjectValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,14 @@ public class PointService {
         return pointRepository.findById(id)
                 .map(this::mapToResponse)
                 .orElseThrow(() -> new RuntimeException("Point not found"));
+    }
+
+    // getReportByCustomerID
+    public List<PointResponse> getPointsByCustomerId(Integer customerId) {
+        List<Point> points = pointRepository.findByCustomerId(customerId);
+        return points.stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     // createPoint

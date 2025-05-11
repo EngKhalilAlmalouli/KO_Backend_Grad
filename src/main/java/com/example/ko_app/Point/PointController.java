@@ -3,6 +3,7 @@ package com.example.ko_app.Point;
 
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
 import com.example.ko_app.Products.ProductResponse;
+import com.example.ko_app.Report.ReportResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,11 @@ public class PointController {
     @GetMapping
     public ResponseEntity<List<?>> getAllpoint() {
         return ResponseEntity.ok(pointService.getAllPoint());
+    }
+
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<PointResponse>> getPointByCustomer(@PathVariable Integer customerId) {
+        return ResponseEntity.ok(pointService.getPointsByCustomerId(customerId));
     }
 
     @GetMapping("/{id}")

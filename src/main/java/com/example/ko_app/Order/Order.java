@@ -1,6 +1,7 @@
 package com.example.ko_app.Order;
 
 import com.example.ko_app.Customer.Customer;
+import com.example.ko_app.Products.Product;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -24,10 +25,13 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     public Order() {}
 
-    public Order(Integer id, Integer quantity, Double subTotal, Double total, String status, Double totalPrice, String shippingAddress, Date createAt, Date updateAt, Customer customer) {
+    public Order(Integer id, Integer quantity, Double subTotal, Double total, String status, Double totalPrice, String shippingAddress, Date createAt, Date updateAt, Customer customer, Product product) {
         this.id = id;
         this.quantity = quantity;
         this.subTotal = subTotal;
@@ -38,6 +42,7 @@ public class Order {
         this.createAt = createAt;
         this.updateAt = updateAt;
         this.customer = customer;
+        this.product = product;
     }
 
     public Integer getId() {
@@ -120,6 +125,14 @@ public class Order {
         this.customer = customer;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -133,6 +146,7 @@ public class Order {
                 ", createAt=" + createAt +
                 ", updateAt=" + updateAt +
                 ", customer=" + customer +
+                ", product=" + product +
                 '}';
     }
 }

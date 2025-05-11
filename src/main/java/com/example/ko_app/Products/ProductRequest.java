@@ -6,15 +6,18 @@ public class ProductRequest {
     private Double productPrice;
     private Integer productQuantity;
     private String productImage;
+    private Integer categoryId;
 
-    public ProductRequest(){}
 
-    public ProductRequest(String productName, String productDescription, Double productPrice, Integer productQuantity, String productImage) {
+    public ProductRequest() {}
+
+    public ProductRequest(String productName, String productDescription, Double productPrice, Integer productQuantity, String productImage, Integer categoryId) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
         this.productQuantity = productQuantity;
         this.productImage = productImage;
+        this.categoryId = categoryId;
     }
 
     public String getProductName() {
@@ -57,6 +60,14 @@ public class ProductRequest {
         this.productImage = productImage;
     }
 
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public String toString() {
         return "ProductRequest{" +
@@ -65,6 +76,7 @@ public class ProductRequest {
                 ", productPrice=" + productPrice +
                 ", productQuantity=" + productQuantity +
                 ", productImage='" + productImage + '\'' +
+                ", categoryId=" + categoryId +
                 '}';
     }
 }

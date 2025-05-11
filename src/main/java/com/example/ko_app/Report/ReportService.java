@@ -34,11 +34,13 @@ public class ReportService {
     }
 
     // getReportByID
-//    public ReportResponse getReportById(Integer id) {
-//        return reportRepository.findById(id)
-//                .map(this::mapToResponse)
-//                .orElseThrow(() -> new RuntimeException("Report not found"));
-//    }
+    public ReportResponse getReportById(Integer id) {
+      return reportRepository.findById(id)
+               .map(this::mapToResponse)
+              .orElseThrow(() -> new RuntimeException("Report not found"));
+  }
+    // getReportByCustomerID
+
     public List<ReportResponse> getReportsByCustomerId(Integer customerId) {
         List<Report> reports = reportRepository.findByCustomerId(customerId);
         return reports.stream()

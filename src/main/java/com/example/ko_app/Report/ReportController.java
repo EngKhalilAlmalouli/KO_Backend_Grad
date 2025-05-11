@@ -31,6 +31,11 @@ public class ReportController {
         return ResponseEntity.ok(reportService.getReportsByCustomerId(customerId));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ReportResponse> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(reportService.getReportById(id));
+    }
+
     @PostMapping
     public ReportResponse createReport(@RequestBody ReportRequest request) {
         return reportService.createReport(request);

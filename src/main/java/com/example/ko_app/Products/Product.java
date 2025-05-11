@@ -1,8 +1,11 @@
 package com.example.ko_app.Products;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.example.ko_app.Categories.Category;
+import com.example.ko_app.Order.Order;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -16,16 +19,27 @@ public class Product {
     private String product_image;
 
 
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
+
     public Product() {
     }
 
-    public Product(Integer id, String product_name, String product_description, Double product_price, Integer product_quantity, String product_image) {
+
+    public Product(Integer id, String product_name, String product_description, Double product_price, Integer product_quantity, String product_image, Category category, List<Order> orders) {
         this.id = id;
         this.product_name = product_name;
         this.product_description = product_description;
         this.product_price = product_price;
         this.product_quantity = product_quantity;
         this.product_image = product_image;
+        this.category = category;
+        this.orders = orders;
     }
 
     public Integer getId() {
@@ -76,6 +90,22 @@ public class Product {
         this.product_image = product_image;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -85,7 +115,8 @@ public class Product {
                 ", product_price=" + product_price +
                 ", product_quantity=" + product_quantity +
                 ", product_image='" + product_image + '\'' +
+                ", category=" + category +
+                ", orders=" + orders +
                 '}';
     }
-
 }

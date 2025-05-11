@@ -1,6 +1,7 @@
 package com.example.ko_app.Products;
 
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,14 +23,19 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProduct());
     }
 
-    @GetMapping("/{id}")
-    public ProductResponse getProductById(@PathVariable Integer id) {
-        return productService.getProductById(id);
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ProductResponse>> getProductsByCategory(@PathVariable Integer categoryId) {
+        return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
 
+//    @PostMapping
+//    public ProductResponse createProduct(@RequestBody ProductRequest request) {
+//        return productService.createProdact(request);
+//    }
+
     @PostMapping
-    public ProductResponse createProduct(@RequestBody ProductRequest request) {
-        return productService.createProdact(request);
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest request) {
+        return new ResponseEntity<>(productService.createProdact(request), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

@@ -66,10 +66,11 @@ public class CategoryService {
 
     // mapToResponse
     private CategoryResponse mapToResponse(Category category) {
-        List<Integer> categoryIds = new ArrayList<>();
+       // List<Integer> categoryIds = new ArrayList<>();
         CategoryResponse response = new CategoryResponse();
         response.setCategoryName(category.getCategoryName());
         response.setCategoryDescription(category.getCategoryDescription());
+        response.setCategory_id(category.getId());
         return response;
     }
 }

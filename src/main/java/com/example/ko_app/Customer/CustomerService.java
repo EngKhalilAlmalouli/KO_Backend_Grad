@@ -139,19 +139,7 @@ public class CustomerService {
 
         customerRepository.save(customer);
         return mapToResponse(customer);
-//
-//        CustomerResponse response = new CustomerResponse();
-//        response.setUsername(customer.getUserName());
-//        response.setFirstName(customer.getFirstName());
-//        response.setLastName(customer.getLastName());
-//        response.setAddress(customer.getAddress());
-//        response.setEmail(customer.getEmail());
-//        response.setPassword(customer.getPassword());
-//        response.setImage(customer.getImage());
-//        response.setPhoneNumber(customer.getPhone());
-//        response.setOrders(new ArrayList<>()); // فارغة بالبداية
-//
-//        return response;
+
 
     }
 

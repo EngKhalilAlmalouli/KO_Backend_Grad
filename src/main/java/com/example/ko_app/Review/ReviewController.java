@@ -2,9 +2,6 @@ package com.example.ko_app.Review;
 
 
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
-import com.example.ko_app.Report.ReportRequest;
-import com.example.ko_app.Report.ReportResponse;
-import com.example.ko_app.Report.ReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +26,10 @@ public class ReviewController {
     @GetMapping("/customer/{customerId}")
     public ResponseEntity<List<ReviewResponse>> getReviewsByCustomer(@PathVariable Integer customerId) {
         return ResponseEntity.ok(reviewService.getReviewsByCustomerId(customerId));
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<ReviewResponse> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(reviewService.getReviewById(id));
     }
 
     @PostMapping

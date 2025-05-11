@@ -22,9 +22,14 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getAllOrder());
     }
 
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<OrderResponse>> getOrdersByCustomer(@PathVariable Integer customerId) {
+        return ResponseEntity.ok(orderService.getOrdersByCustomerId(customerId));
+    }
+
     @GetMapping("/{id}")
-    public OrderResponse getOrderById(@PathVariable Integer id) {
-        return orderService.getOrderById(id);
+    public ResponseEntity<OrderResponse> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(orderService.getOrderById(id));
     }
 
     @PostMapping
