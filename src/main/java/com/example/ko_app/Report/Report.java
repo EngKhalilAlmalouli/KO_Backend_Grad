@@ -6,13 +6,27 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "report")
 public class Report {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "report_id",
+            sequenceName = "report_id",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "report_id")
     private Integer id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "createdAt")
     private String createdAt;
+
+    @Column(name = "updatedAt")
     private String updatedAt;
 
     @ManyToOne

@@ -94,6 +94,7 @@ public class ReportService {
     private ReportResponse mapToResponse(Report report) {
         List<Integer> reportIds = new ArrayList<>();
         ReportResponse response = new ReportResponse();
+        response.setReportId(report.getId());
         response.setReportTitle(report.getTitle());
         response.setReportDescription(report.getDescription());
         response.setReportCreatedAt(report.getCreatedAt());

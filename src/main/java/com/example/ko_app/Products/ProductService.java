@@ -35,11 +35,11 @@ public class ProductService {
     }
 
     // getProductrByID
-//    public ProductResponse getProductById(Integer id) {
-//        return productRepository.findById(id)
-//                .map(this::mapToResponse)
-//                .orElseThrow(() -> new RuntimeException("Product not found"));
-//    }
+    public ProductResponse getProductById(Integer id) {
+        return productRepository.findById(id)
+                .map(this::mapToResponse)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+    }
 
     public List<ProductResponse> getProductsByCategory(Integer categoryId) {
         List<Product> products = productRepository.findByCategoryId(categoryId);
@@ -95,6 +95,7 @@ public class ProductService {
     private ProductResponse mapToResponse(Product product) {
         List<Integer> productIds = new ArrayList<>();
         ProductResponse response = new ProductResponse();
+        response.setProductId(product.getId());
         response.setProductName(product.getProduct_name());
         response.setProductDescription(product.getProduct_description());
         response.setProductPrice(product.getProduct_price());

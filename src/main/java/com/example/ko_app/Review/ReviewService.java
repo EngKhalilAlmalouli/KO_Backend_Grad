@@ -87,6 +87,7 @@ public class ReviewService {
     private ReviewResponse mapToResponse(Review review) {
         List<Integer> reviewIds = new ArrayList<>();
         ReviewResponse response = new ReviewResponse();
+        response.setReviewId(review.getId());
         response.setReviewTitle(review.getTitle());
         response.setReviewDescription(review.getDescription());
         response.setCustomerId(review.getCustomer().getId());

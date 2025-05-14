@@ -11,17 +11,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "customer")
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "customer_id",
+            sequenceName = "customer_id",
+            allocationSize = 1
+
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "customer_id")
     private Integer id;
+
+    @Column(name = "customer_firstName")
     private String firstName;
+
+    @Column(name = "customer_lastName")
     private String lastName;
+
+    @Column(name = "customer_userName")
     private String userName;
+
+    @Column(name = "customer_address")
     private String address;
+
+    @Column(name = "customer_phone")
     private String phone;
+
+    @Column(name = "customer_email")
     private String email;
+
+    @Column(name = "customer_password")
     private String password;
+
+    @Column(name = "customer_image")
     private String image;
 
 
@@ -40,7 +63,9 @@ public class Customer {
 
     public Customer() {}
 
-    public Customer(String firstName, String lastName, String userName, String address, String phone, String email, String password, String image) {
+
+    public Customer(Integer id, String firstName, String lastName, String userName, String address, String phone, String email, String password, String image, List<Order> orders, List<Point> points, List<Report> reports, List<Review> reviews) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -49,6 +74,10 @@ public class Customer {
         this.email = email;
         this.password = password;
         this.image = image;
+        this.orders = orders;
+        this.points = points;
+        this.reports = reports;
+        this.reviews = reviews;
     }
 
     public Integer getId() {
@@ -131,6 +160,30 @@ public class Customer {
         this.orders = orders;
     }
 
+    public List<Point> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<Point> points) {
+        this.points = points;
+    }
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -143,9 +196,11 @@ public class Customer {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", image='" + image + '\'' +
+                ", orders=" + orders +
+                ", points=" + points +
+                ", reports=" + reports +
+                ", reviews=" + reviews +
                 '}';
     }
-
-
 }
 

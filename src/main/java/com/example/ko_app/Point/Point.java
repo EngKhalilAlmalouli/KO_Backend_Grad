@@ -5,12 +5,24 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 @Entity
+@Table(name = "point")
 public class Point {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(
+            name = "point_id",
+            sequenceName = "point_id",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "point_id")
     private Integer id;
+
+    @Column(name = "point_name")
     private String name;
+
+    @Column(name = "point_value")
     private Integer value;
+
+    @Column(name = "point_createdAt")
     private String createdAt;
 
 

@@ -176,6 +176,7 @@ public class CustomerService {
     private CustomerResponse mapToResponse(Customer customer) {
         List<Integer> customerIds = new ArrayList<>();
         CustomerResponse response = new CustomerResponse();
+        response.setCustomerId(customer.getId());
         response.setUsername(customer.getUserName());
         response.setFirstName(customer.getFirstName());
         response.setLastName(customer.getLastName());
@@ -184,6 +185,7 @@ public class CustomerService {
         response.setEmail(customer.getEmail());
         response.setPassword(customer.getPassword());
         response.setImage(customer.getImage());
+
         return response;
     }
 }

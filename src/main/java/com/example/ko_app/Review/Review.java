@@ -4,11 +4,21 @@ import com.example.ko_app.Customer.Customer;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "review")
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "review_id",
+            sequenceName = "review_id",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_id")
     private Integer id;
+
+    @Column(name = "review_title")
     private String title;
+
+    @Column(name = "review_description")
     private String description;
 
 

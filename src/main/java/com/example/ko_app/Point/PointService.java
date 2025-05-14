@@ -94,6 +94,7 @@ public class PointService {
     private PointResponse mapToResponse(Point point) {
         List<Integer> pointIds = new ArrayList<>();
         PointResponse response = new PointResponse();
+        response.setPointId(point.getId());
         response.setPointName(point.getName());
         response.setPointValue(point.getValue());
         response.getPointCreatedAt(point.getCreatedAt());

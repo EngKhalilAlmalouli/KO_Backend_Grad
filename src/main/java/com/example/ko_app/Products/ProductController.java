@@ -1,6 +1,7 @@
 package com.example.ko_app.Products;
 
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
+import com.example.ko_app.Point.PointResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,11 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<?>> getAllPRoduct() {
         return ResponseEntity.ok(productService.getAllProduct());
+    }
+
+    @GetMapping("/{id}")
+    public ProductResponse getProductById(@PathVariable Integer id) {
+        return productService.getProductById(id);
     }
 
     @GetMapping("/category/{categoryId}")

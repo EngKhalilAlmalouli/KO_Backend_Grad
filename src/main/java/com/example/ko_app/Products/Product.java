@@ -8,14 +8,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "product")
 public class Product {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(
+            name = "product_id",
+            sequenceName = "product_id",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id")
     private Integer id;
+
+
+    @Column(name = "product_name")
     private String product_name;
+
+    @Column(name = "product_description")
     private String product_description;
+
+    @Column(name = "product_price")
     private Double product_price;
+
+    @Column(name = "product_quantity")
     private Integer product_quantity;
+
+    @Column(name = "product_image")
     private String product_image;
 
 

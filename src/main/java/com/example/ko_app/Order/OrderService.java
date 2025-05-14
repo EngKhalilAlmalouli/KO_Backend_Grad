@@ -118,6 +118,7 @@ public class OrderService {
     private OrderResponse mapToResponse(Order order) {
         List<Integer> orderIds = new ArrayList<>();
         OrderResponse response = new OrderResponse();
+        response.setOrderId(order.getId());
         response.setOrderQuantity(order.getQuantity());
         response.setOrderStatus(order.getStatus());
         response.setOrderTotal(order.getTotal());

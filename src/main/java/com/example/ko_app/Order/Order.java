@@ -6,20 +6,44 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 @Entity
-@Table(name = "\"order\"")
+@Table(name = "orders")
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "order_id",
+            sequenceName = "order_id",
+            allocationSize = 1
+
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "order_id")
     private Integer id;
+
+    @Column(name = "order_quantity")
     private Integer quantity;
+
+    @Column(name = "order_subTotal")
     private Double subTotal;
+
+    @Column(name = "order_total")
     private Double total;
+
+    @Column(name = "order_status")
     private String status;
+
+    @Column(name = "order_totalPrice")
     private Double totalPrice;
+
+    @Column(name = "order_shippingAddress")
     private String shippingAddress;
+
+    @Column(name = "order_createAt")
     private Date createAt;
+
+    @Column(name = "order_updateAt")
     private Date updateAt;
+
+
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
