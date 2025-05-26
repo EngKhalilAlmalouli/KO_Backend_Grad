@@ -13,13 +13,38 @@
 //    ADMIN(
 //            Set.of(
 //                    Permission.ADMIN_READ,
-//                    Permission.ADMIN_UPDATE
+//                    Permission.ADMIN_UPDATE,
+//                    Permission.ADMIN_CREATE,
+//                    Permission.ADMIN_DELETE
 //            )
 //    ),
 //    SUBADMIN(
 //            Set.of(
+//                    Permission.SUBADMIN_READ,
 //                    Permission.SUBADMIN_UPDATE,
-//                    Permission.SUBADMIN_READ
+//                    Permission.SUBADMIN_CREATE,
+//                    Permission.SUBADMIN_DELETE
+//
+//            )
+//    ),
+//
+//    CUSTOMER(
+//            Set.of(
+//            Permission.CUSTOMER_READ,
+//            Permission.CUSTOMER_UPDATE,
+//            Permission.CUSTOMER_CREATE,
+//            Permission.CUSTOMER_DELETE
+//
+//            )
+//    ),
+//
+//    DRIVER(
+//            Set.of(
+//                    Permission.DRIVER_READ,
+//                    Permission.DRIVER_UPDATE,
+//                    Permission.DRIVER_CREATE,
+//                    Permission.DRIVER_DELETE
+//
 //            )
 //    );
 //

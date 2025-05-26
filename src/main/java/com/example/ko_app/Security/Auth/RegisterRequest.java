@@ -53,7 +53,7 @@
 //        this.password = password;
 //    }
 //
-//    public javax.management.relation.Role getRole() {
+//    public Role getRole() {
 //        return role;
 //    }
 //

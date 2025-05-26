@@ -185,6 +185,7 @@ public class CustomerService {
         response.setEmail(customer.getEmail());
         response.setPassword(customer.getPassword());
         response.setImage(customer.getImage());
+        response.setOrders(customer.getOrders());
 
 
         return response;

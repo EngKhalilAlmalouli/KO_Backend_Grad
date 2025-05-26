@@ -4,7 +4,9 @@
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 //
-//import javax.management.relation.Role;
+////import javax.management.relation.Role;
+//import com.example.ko_app.Security.User.Role;
+//
 //import java.util.Collection;
 //import java.util.List;
 //
@@ -28,7 +30,7 @@
 //
 //    private String password;
 //
-//    @Enumerated(EnumType.ORDINAL)
+//    @Enumerated(EnumType.STRING)
 //    private Role role;
 //
 //    //constructor

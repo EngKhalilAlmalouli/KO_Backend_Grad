@@ -40,6 +40,11 @@ package com.example.ko_app.Customer;//package com.example.KO_Recycle_App.Custome
 //}
 
 
+import com.example.ko_app.Order.Order;
+import com.example.ko_app.Order.OrderResponse;
+
+import java.util.List;
+
 public class CustomerRequest {
     private String firstName;
     private String lastName;
@@ -51,9 +56,10 @@ public class CustomerRequest {
     private String image;
 
 
-    public CustomerRequest(){}
-    public CustomerRequest(String firstName, String lastName, String userName, String address, String phone, String email, String password, String image) {
 
+    public CustomerRequest(){}
+
+    public CustomerRequest(String firstName, String lastName, String userName, String address, String phone, String email, String password, String image) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -64,7 +70,6 @@ public class CustomerRequest {
         this.image = image;
     }
 
-    // Getter and Setter methods for each field
     public String getFirstName() {
         return firstName;
     }
@@ -142,4 +147,6 @@ public class CustomerRequest {
                 ", image='" + image + '\'' +
                 '}';
     }
+
+
 }

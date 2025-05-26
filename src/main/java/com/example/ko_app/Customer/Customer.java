@@ -1,11 +1,11 @@
 package com.example.ko_app.Customer;
 
 import com.example.ko_app.Order.Order;
+import com.example.ko_app.Order.OrderResponse;
 import com.example.ko_app.Point.Point;
 import com.example.ko_app.Report.Report;
 import com.example.ko_app.Review.Review;
 import jakarta.persistence.*;
-import org.springframework.scheduling.config.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,6 @@ public class Customer {
 
 
     public Customer() {}
-
 
     public Customer(Integer id, String firstName, String lastName, String userName, String address, String phone, String email, String password, String image, List<Order> orders, List<Point> points, List<Report> reports, List<Review> reviews) {
         this.id = id;
@@ -182,25 +181,6 @@ public class Customer {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", userName='" + userName + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", image='" + image + '\'' +
-                ", orders=" + orders +
-                ", points=" + points +
-                ", reports=" + reports +
-                ", reviews=" + reviews +
-                '}';
     }
 }
 

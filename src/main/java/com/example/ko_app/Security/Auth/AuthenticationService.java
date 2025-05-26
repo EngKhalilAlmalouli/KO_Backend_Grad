@@ -1,6 +1,7 @@
 //package com.example.ko_app.Security.Auth;
 //
 //import com.example.ko_app.Security.Confing.JwtService;
+//import com.example.ko_app.Security.User.Role;
 //import com.example.ko_app.Security.User.User;
 //import com.example.ko_app.Security.User.UserRepository;
 //import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +31,7 @@
 //                .lastname(request.getLastname())
 //                .email(request.getEmail())
 //                .password(passwordEncoder.encode(request.getPassword()))
-//                .role(request.getRole() )
+//                .role(Role.USER)
 //                .build();
 //        userRepository.save(user);
 //        String token = jwtService.generateToken(user);

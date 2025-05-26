@@ -6,20 +6,21 @@ public class ProductResponse {
     private String productDescription;
     private Double productPrice;
     private Integer productQuantity;
-    private String productImage;
+//    private String productImage;
     private Integer categoryId;
+    private Integer imageId;
 
     public ProductResponse(){}
 
 
-    public ProductResponse(Integer productId, String productName, String productDescription, Double productPrice, Integer productQuantity, String productImage, Integer categoryId) {
+    public ProductResponse(Integer productId, String productName, String productDescription, Double productPrice, Integer productQuantity, Integer categoryId, Integer imageId) {
         this.productId = productId;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
         this.productQuantity = productQuantity;
-        this.productImage = productImage;
         this.categoryId = categoryId;
+        this.imageId = imageId;
     }
 
     public Integer getProductId() {
@@ -62,20 +63,20 @@ public class ProductResponse {
         this.productQuantity = productQuantity;
     }
 
-    public String getProductImage() {
-        return productImage;
-    }
-
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
-    }
-
     public Integer getCategoryId() {
         return categoryId;
     }
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Integer getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Integer imageId) {
+        this.imageId = imageId;
     }
 
     @Override
@@ -86,8 +87,8 @@ public class ProductResponse {
                 ", productDescription='" + productDescription + '\'' +
                 ", productPrice=" + productPrice +
                 ", productQuantity=" + productQuantity +
-                ", productImage='" + productImage + '\'' +
                 ", categoryId=" + categoryId +
+                ", imageId=" + imageId +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.example.ko_app.Products;
 
 import com.example.ko_app.Categories.Category;
+import com.example.ko_app.Images.Image;
 import com.example.ko_app.Order.Order;
 import jakarta.persistence.*;
 
@@ -32,8 +33,8 @@ public class Product {
     @Column(name = "product_quantity")
     private Integer product_quantity;
 
-    @Column(name = "product_image")
-    private String product_image;
+//    @Column(name = "product_image")
+//    private String product_image;
 
 
 
@@ -44,19 +45,23 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id")
+    private Image image;
+
     public Product() {
     }
 
 
-    public Product(Integer id, String product_name, String product_description, Double product_price, Integer product_quantity, String product_image, Category category, List<Order> orders) {
+    public Product(Integer id, String product_name, String product_description, Double product_price, Integer product_quantity, Category category, List<Order> orders, Image image) {
         this.id = id;
         this.product_name = product_name;
         this.product_description = product_description;
         this.product_price = product_price;
         this.product_quantity = product_quantity;
-        this.product_image = product_image;
         this.category = category;
         this.orders = orders;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -99,14 +104,6 @@ public class Product {
         this.product_quantity = product_quantity;
     }
 
-    public String getProduct_image() {
-        return product_image;
-    }
-
-    public void setProduct_image(String product_image) {
-        this.product_image = product_image;
-    }
-
     public Category getCategory() {
         return category;
     }
@@ -123,6 +120,14 @@ public class Product {
         this.orders = orders;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -131,9 +136,9 @@ public class Product {
                 ", product_description='" + product_description + '\'' +
                 ", product_price=" + product_price +
                 ", product_quantity=" + product_quantity +
-                ", product_image='" + product_image + '\'' +
                 ", category=" + category +
                 ", orders=" + orders +
+                ", image=" + image +
                 '}';
     }
 }

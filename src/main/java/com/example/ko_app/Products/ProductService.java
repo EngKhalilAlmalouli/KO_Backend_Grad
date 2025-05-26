@@ -7,6 +7,8 @@ import com.example.ko_app.Customer.Customer;
 import com.example.ko_app.Customer.CustomerRepository;
 import com.example.ko_app.Customer.CustomerRequest;
 import com.example.ko_app.Customer.CustomerResponse;
+import com.example.ko_app.Images.Image;
+import com.example.ko_app.Images.ImageRepository;
 import com.example.ko_app.validation.ObjectValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +22,15 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ImageRepository imageRepository;
 
     private final ObjectValidator<ProductRequest> validator;
 
     // Constructor for dependency injection
-    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository, ObjectValidator<ProductRequest> validator) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository, ImageRepository imageRepository, ObjectValidator<ProductRequest> validator) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.imageRepository = imageRepository;
         this.validator = validator;
     }
 
@@ -41,6 +45,7 @@ public class ProductService {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
+    // getProductrByCategoryID
     public List<ProductResponse> getProductsByCategory(Integer categoryId) {
         List<Product> products = productRepository.findByCategoryId(categoryId);
         return products.stream().map(this::mapToResponse).collect(Collectors.toList());
@@ -51,6 +56,9 @@ public class ProductService {
         Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
+        Image image = imageRepository.findById(request.getImageId())
+                .orElseThrow(() -> new RuntimeException("Image not found"));
+
         validator.validate(request);
 
         Product product = new Product();
@@ -58,8 +66,10 @@ public class ProductService {
         product.setProduct_description(request.getProductDescription());
         product.setProduct_price(request.getProductPrice());
         product.setProduct_quantity(request.getProductQuantity());
-        product.setProduct_image(request.getProductImage());
+
+//        product.setProduct_image(request.getProductImage());
         product.setCategory(category);
+        product.setImage(image);
 
 
         productRepository.save(product);
@@ -76,7 +86,7 @@ public class ProductService {
         product.setProduct_description(request.getProductDescription());
         product.setProduct_price(request.getProductPrice());
         product.setProduct_quantity(request.getProductQuantity());
-        product.setProduct_image(request.getProductImage());
+//        product.setProduct_image(request.getProductImage());
 
         product =productRepository.save(product);
         return mapToResponse(product);
@@ -100,8 +110,13 @@ public class ProductService {
         response.setProductDescription(product.getProduct_description());
         response.setProductPrice(product.getProduct_price());
         response.setProductQuantity(product.getProduct_quantity());
-        response.setProductImage(product.getProduct_image());
+//        response.setProductImage(product.getProduct_image());
         response.setCategoryId(product.getCategory().getId());
+        if (product.getImage() != null) {
+            response.setImageId(product.getImage().getId());
+        } else {
+            response.setImageId(null); // أو يمكنك تجاهلها إذا لم تكن مطلوبة
+        }
 
 
         return response;

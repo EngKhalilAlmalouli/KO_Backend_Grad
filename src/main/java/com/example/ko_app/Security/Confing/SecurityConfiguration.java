@@ -12,37 +12,37 @@
 //import org.springframework.security.web.SecurityFilterChain;
 //import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 //
-//@Configuration
-//@EnableWebSecurity
-//@EnableMethodSecurity
-//public class SecurityConfiguration {
+//    @Configuration
+//    @EnableWebSecurity
+//    @EnableMethodSecurity
+//    public class SecurityConfiguration {
 //
-//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
-//    private final AuthenticationProvider authenticationProvider;
+//        private final JwtAuthenticationFilter jwtAuthenticationFilter;
+//        private final AuthenticationProvider authenticationProvider;
 //
-//    // Constructor
-//    public SecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter,
-//                                 AuthenticationProvider authenticationProvider) {
-//        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-//        this.authenticationProvider = authenticationProvider;
+//        // Constructor
+//        public SecurityConfiguration(JwtAuthenticationFilter jwtAuthenticationFilter,
+//                                     AuthenticationProvider authenticationProvider) {
+//            this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+//            this.authenticationProvider = authenticationProvider;
+//        }
+//
+//        @Bean
+//        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//            http
+//                    .csrf(AbstractHttpConfigurer::disable)
+//                    .authorizeHttpRequests(req ->
+//                            req
+//                                    .requestMatchers("/api/v1/auth/login").permitAll()
+//                                    .requestMatchers("/api/v1/auth/register").permitAll()
+//                                    .requestMatchers("/api/v1/auth/admin/**").hasRole(Role.ADMIN.name())
+//                                    .requestMatchers("/api/v1/auth/management/**")
+//                                    .hasAnyRole(Role.ADMIN.name(), Role.SUBADMIN.name(), Role.CUSTOMER.name(), Role.DRIVER.name())
+//                    )
+//                    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                    .authenticationProvider(authenticationProvider)
+//                    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//            return http.build();
+//        }
 //    }
-//
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(req ->
-//                        req
-//                                .requestMatchers("/api/v1/auth/login").permitAll()
-//                                .requestMatchers("/api/v1/auth/register").permitAll()
-//                                .requestMatchers("api/v1/auth/admin/**").hasRole(Role.ADMIN.name())
-//                                .requestMatchers("api/v1/auth/management/**")
-//                                .hasAnyRole(Role.ADMIN.name(), Role.SUBADMIN.name())
-//                )
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authenticationProvider(authenticationProvider)
-//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//        return http.build();
-//    }
-//}

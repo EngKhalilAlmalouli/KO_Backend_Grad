@@ -24,6 +24,7 @@
 
 package com.example.ko_app.Customer;
 
+import com.example.ko_app.Order.Order;
 import com.example.ko_app.Order.OrderResponse;
 
 import java.util.List;
@@ -38,13 +39,13 @@ public class CustomerResponse {
     private String phoneNumber;
     private String address;
     private String image;
-    private List<OrderResponse> orders;
+    private List<Order> orders;
 
     // Default constructor
     public CustomerResponse() {
     }
 
-    public CustomerResponse(Integer customerId, String username, String firstName, String lastName, String email, String password, String phoneNumber, String address, String image, List<OrderResponse> orders) {
+    public CustomerResponse(Integer customerId, String username, String firstName, String lastName, String email, String password, String phoneNumber, String address, String image, List<Order> orders) {
         this.customerId = customerId;
         this.username = username;
         this.firstName = firstName;
@@ -129,11 +130,11 @@ public class CustomerResponse {
         this.image = image;
     }
 
-    public List<OrderResponse> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<OrderResponse> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
