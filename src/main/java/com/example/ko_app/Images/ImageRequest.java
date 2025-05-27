@@ -4,26 +4,16 @@ import jakarta.persistence.*;
 
 public class ImageRequest {
 
-    private Integer imageId;
     private String imageName;
     private String imagePath;
     private Integer productId;
 
     public ImageRequest(){}
 
-    public ImageRequest(Integer imageId, String imageName, String imagePath, Integer productId) {
-        this.imageId = imageId;
+    public ImageRequest(String imageName, String imagePath, Integer productId) {
         this.imageName = imageName;
         this.imagePath = imagePath;
         this.productId = productId;
-    }
-
-    public Integer getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(Integer imageId) {
-        this.imageId = imageId;
     }
 
     public String getImageName() {
@@ -53,8 +43,7 @@ public class ImageRequest {
     @Override
     public String toString() {
         return "ImageRequest{" +
-                "imageId=" + imageId +
-                ", imageName='" + imageName + '\'' +
+                "imageName='" + imageName + '\'' +
                 ", imagePath='" + imagePath + '\'' +
                 ", productId=" + productId +
                 '}';

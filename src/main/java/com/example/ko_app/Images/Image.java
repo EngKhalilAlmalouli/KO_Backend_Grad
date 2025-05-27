@@ -24,7 +24,7 @@ public class Image {
 
 
     @OneToOne
-    @JoinColumn(name = "image_id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
     public Image() {}
