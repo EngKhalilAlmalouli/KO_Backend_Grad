@@ -1,89 +1,51 @@
 package com.example.ko_app.Images;
 
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
-import com.example.ko_app.Report.ReportRequest;
-import com.example.ko_app.Report.ReportResponse;
-import com.example.ko_app.Report.ReportService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.http.MediaType;
 
-
-import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/images")
 public class ImageController {
-    private final ImageService imageService;
 
-    // Constructor for dependency injection
+    @Autowired
+    private ImageService imageService;
 
-    public ImageController(ImageService imageService) {
-        this.imageService = imageService;
+    // Upload image to database
+    @PostMapping("/db")
+    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
+        String uploadImage = imageService.uploadImage(file);
+        return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
     }
 
-    @GetMapping
-    public ResponseEntity<List<?>> getAllImage() {
-        return ResponseEntity.ok(imageService.getAllImage());
+    // Download image from database
+    @GetMapping("/db/{fileName}")
+    public ResponseEntity<?> downloadImage(@PathVariable String fileName) throws NotFoundInDatabaseException {
+        byte[] image = imageService.downloadImage(fileName);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.IMAGE_PNG)
+                .body(image);
     }
 
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ImageResponse> getImageById(@PathVariable Integer id) {
-        return ResponseEntity.ok(imageService.getImageById(id));
-    }
-//
-//    @PostMapping
-//    public ImageResponse createImage(@RequestBody ImageRequest request) {
-//        return imageService.createImage(request);
-//    }
-//@PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//public ResponseEntity<ImageResponse> updateImage(
-//        @PathVariable Integer id,
-//        @RequestParam("file") MultipartFile file,
-//        @RequestParam("productId") Integer productId
-//) {
-//    ImageRequest request = new ImageRequest();
-//    request.setProductId(productId);
-//
-//    return ResponseEntity.ok(imageService.updateImage(id, file, request));
-//}
-@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-public ResponseEntity<ImageResponse> createImage(
-        @RequestParam("file") MultipartFile file,
-        @RequestParam("productId") Integer productId) {
-
-    ImageRequest request = new ImageRequest();
-    request.setProductId(productId);
-    ImageResponse response = imageService.createImage(file, request);
-    return ResponseEntity.ok(response);
-}
-
-//    @PutMapping("/{id}")
-//    public ImageResponse updateImage(@PathVariable Integer id, @RequestBody ImageRequest request) {
-//        return imageService.updateImage(id, request);
-//    }
-
-    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ImageResponse> updateImage(@PathVariable Integer id, @RequestParam("file") MultipartFile file) {
-        ImageRequest request = new ImageRequest();
-        request.setProductId(id);
-
-    ImageResponse updatedimage = imageService.updateImage(id, file, request);
-    return ResponseEntity.ok(updatedimage);
+    // Upload image to file system
+    @PostMapping("/fs")
+    public ResponseEntity<?> uploadImageToFileSystem(@RequestParam("image") MultipartFile file) throws IOException {
+        String uploadImage = imageService.uploadImageToFileSystem(file);
+        return ResponseEntity.status(HttpStatus.OK).body(uploadImage);
     }
 
-
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteImage(@PathVariable Integer id) {
-        imageService.deleteImage(id);
-        return ResponseEntity.ok("Image deleted successfully");
+    // Download image from file system
+    @GetMapping("/fs/{fileName}")
+    public ResponseEntity<?> downloadImageFromFileSystem(@PathVariable String fileName) throws IOException, NotFoundInDatabaseException {
+        byte[] image = imageService.downloadImageFromFileSystem(fileName);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.IMAGE_PNG)
+                .body(image);
     }
-
 }

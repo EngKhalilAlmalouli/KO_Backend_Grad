@@ -5,15 +5,19 @@ public class ImageResponse {
     private Integer imageId;
     private String imageName;
     private String imagePath;
+    private String imageType;
+    private String imageImageData;
     private Integer productId;
 
+    public ImageResponse() {}
 
-    public ImageResponse(){}
 
-    public ImageResponse(Integer imageId, String imageName, String imagePath, Integer productId) {
+    public ImageResponse(Integer imageId, String imageName, String imagePath, String imageType, String imageImageData, Integer productId) {
         this.imageId = imageId;
         this.imageName = imageName;
         this.imagePath = imagePath;
+        this.imageType = imageType;
+        this.imageImageData = imageImageData;
         this.productId = productId;
     }
 
@@ -41,21 +45,27 @@ public class ImageResponse {
         this.imagePath = imagePath;
     }
 
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
+    }
+
+    public String getImageImageData() {
+        return imageImageData;
+    }
+
+    public void setImageImageData(String imageImageData) {
+        this.imageImageData = imageImageData;
+    }
+
     public Integer getProductId() {
         return productId;
     }
 
     public void setProductId(Integer productId) {
         this.productId = productId;
-    }
-
-    @Override
-    public String toString() {
-        return "ImageResponse{" +
-                "imageId=" + imageId +
-                ", imageName='" + imageName + '\'' +
-                ", imagePath='" + imagePath + '\'' +
-                ", productId=" + productId +
-                '}';
     }
 }
