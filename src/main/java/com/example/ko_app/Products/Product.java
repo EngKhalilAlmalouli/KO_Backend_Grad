@@ -1,7 +1,7 @@
 package com.example.ko_app.Products;
 
 import com.example.ko_app.Categories.Category;
-import com.example.ko_app.Images.Image;
+import com.example.ko_app.ImagesFile.ImageFile;
 import com.example.ko_app.Order.Order;
 import jakarta.persistence.*;
 
@@ -47,13 +47,13 @@ public class Product {
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id")
-    private Image image;
+    private ImageFile image;
 
     public Product() {
     }
 
 
-    public Product(Integer id, String product_name, String product_description, Double product_price, Integer product_quantity, Category category, List<Order> orders, Image image) {
+    public Product(Integer id, String product_name, String product_description, Double product_price, Integer product_quantity, Category category, List<Order> orders, ImageFile imageFile) {
         this.id = id;
         this.product_name = product_name;
         this.product_description = product_description;
@@ -61,7 +61,7 @@ public class Product {
         this.product_quantity = product_quantity;
         this.category = category;
         this.orders = orders;
-        this.image = image;
+        this.image = imageFile;
     }
 
     public Integer getId() {
@@ -120,12 +120,12 @@ public class Product {
         this.orders = orders;
     }
 
-    public Image getImage() {
+    public ImageFile getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImage(ImageFile imageFile) {
+        this.image = imageFile;
     }
 
     @Override
