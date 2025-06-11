@@ -145,53 +145,6 @@ public class User implements UserDetails {
         return true;
     }
 
-    // Builder
 
-    public static class Builder {
-        private Integer id;
-        private String firstname;
-        private String lastname;
-        private String email;
-        private String password;
-        private Role role;
-
-        public Builder id(Integer id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder firstname(String firstname) {
-            this.firstname = firstname;
-            return this;
-        }
-
-        public Builder lastname(String lastname) {
-            this.lastname = lastname;
-            return this;
-        }
-
-        public Builder email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public Builder role(Role role) {
-            this.role = role;
-            return this;
-        }
-
-        public User build() {
-            return new User(id, firstname, lastname, email, password, role);
-        }
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
 }
 

@@ -36,6 +36,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                                     .requestMatchers("/api/v1/auth/login").permitAll()
                                     .requestMatchers("/api/v1/auth/register").permitAll()
                                     .requestMatchers("/api/v1/auth/admin/**").hasRole(Role.ADMIN.name())
+
+//                                    .requestMatchers("/api/v1/auth/register/customers").hasRole(Role.CUSTOMER.name())
+
+                                    .requestMatchers("/api/products/**").hasRole(Role.CUSTOMER.name())
+                                    .requestMatchers("/api/category/**").hasRole(Role.CUSTOMER.name())
+                                    .requestMatchers("/api/reports/**").hasRole(Role.CUSTOMER.name())
+                                    .requestMatchers("/api/reviews/**").hasRole(Role.CUSTOMER.name())
+                                    .requestMatchers("/api/points/**").hasRole(Role.CUSTOMER.name())
+                                    .requestMatchers("/api/files/**").hasRole(Role.CUSTOMER.name())
+                                    .requestMatchers("/api/orders/**").hasRole(Role.CUSTOMER.name())
+
+
                                     .requestMatchers("/api/v1/auth/management/**")
                                     .hasAnyRole(Role.ADMIN.name(), Role.SUBADMIN.name(), Role.CUSTOMER.name(), Role.DRIVER.name())
                     )
