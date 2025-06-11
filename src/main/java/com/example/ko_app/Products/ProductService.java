@@ -3,8 +3,8 @@ package com.example.ko_app.Products;
 import com.example.ko_app.Categories.Category;
 import com.example.ko_app.Categories.CategoryRepository;
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
-import com.example.ko_app.ImagesFile.ImageFile;
-import com.example.ko_app.ImagesFile.ImageFileRepository;
+//import com.example.ko_app.ImagesFile.ImageFile;
+//import com.example.ko_app.ImagesFile.ImageFileRepository;
 import com.example.ko_app.validation.ObjectValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +18,15 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
-    private final ImageFileRepository imageRepository;
+//    private final ImageFileRepository imageRepository;
 
     private final ObjectValidator<ProductRequest> validator;
 
     // Constructor for dependency injection
-    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository, ImageFileRepository imageRepository, ObjectValidator<ProductRequest> validator) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository, ObjectValidator<ProductRequest> validator) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
-        this.imageRepository = imageRepository;
+//        this.imageRepository = imageRepository;
         this.validator = validator;
     }
 
@@ -52,9 +52,6 @@ public class ProductService {
         Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        ImageFile imageFile = imageRepository.findById(request.getImageId())
-                .orElseThrow(() -> new RuntimeException("ImageFile not found"));
-
         validator.validate(request);
 
         Product product = new Product();
@@ -65,7 +62,7 @@ public class ProductService {
 
 //        product.setProduct_image(request.getProductImage());
         product.setCategory(category);
-        product.setImage(imageFile);
+//        product.setImage(imageFile);
 
 
         productRepository.save(product);
@@ -108,11 +105,7 @@ public class ProductService {
         response.setProductQuantity(product.getProduct_quantity());
 //        response.setProductImage(product.getProduct_image());
         response.setCategoryId(product.getCategory().getId());
-        if (product.getImage() != null) {
-            response.setImageId(product.getImage().getId());
-        } else {
-            response.setImageId(null); // أو يمكنك تجاهلها إذا لم تكن مطلوبة
-        }
+//
 
 
         return response;

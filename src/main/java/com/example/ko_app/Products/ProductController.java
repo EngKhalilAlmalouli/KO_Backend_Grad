@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/products")
@@ -20,8 +22,11 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<?>> getAllPRoduct() {
-        return ResponseEntity.ok(productService.getAllProduct());
+    public ResponseEntity<Map<String, List<Product>>> getAllPRoduct() {
+        List<?> products = productService.getAllProduct();
+        Map<String, List<Product>> response = new HashMap<>();
+        response.put("products", (List<Product>) products);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")

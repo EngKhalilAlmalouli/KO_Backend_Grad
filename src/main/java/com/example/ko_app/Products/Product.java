@@ -1,7 +1,7 @@
 package com.example.ko_app.Products;
 
 import com.example.ko_app.Categories.Category;
-import com.example.ko_app.ImagesFile.ImageFile;
+//import com.example.ko_app.ImagesFile.ImageFile;
 import com.example.ko_app.Order.Order;
 import jakarta.persistence.*;
 
@@ -45,15 +45,15 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id")
-    private ImageFile image;
+//    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+//    @JoinColumn(name = "image_id")
+//    private ImageFile image;
 
     public Product() {
     }
 
 
-    public Product(Integer id, String product_name, String product_description, Double product_price, Integer product_quantity, Category category, List<Order> orders, ImageFile imageFile) {
+    public Product(Integer id, String product_name, String product_description, Double product_price, Integer product_quantity, Category category, List<Order> orders) {
         this.id = id;
         this.product_name = product_name;
         this.product_description = product_description;
@@ -61,7 +61,7 @@ public class Product {
         this.product_quantity = product_quantity;
         this.category = category;
         this.orders = orders;
-        this.image = imageFile;
+//        this.image = imageFile;
     }
 
     public Integer getId() {
@@ -120,13 +120,13 @@ public class Product {
         this.orders = orders;
     }
 
-    public ImageFile getImage() {
-        return image;
-    }
+//    public ImageFile getImage() {
+//        return image;
+//    }
 
-    public void setImage(ImageFile imageFile) {
-        this.image = imageFile;
-    }
+//    public void setImage(ImageFile imageFile) {
+//        this.image = imageFile;
+//    }
 
     @Override
     public String toString() {
@@ -138,7 +138,7 @@ public class Product {
                 ", product_quantity=" + product_quantity +
                 ", category=" + category +
                 ", orders=" + orders +
-                ", image=" + image +
+//                ", image=" + image +
                 '}';
     }
 }

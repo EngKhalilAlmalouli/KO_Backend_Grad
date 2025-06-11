@@ -8,7 +8,7 @@ public class ProductResponse {
     private Integer productQuantity;
 //    private String productImage;
     private Integer categoryId;
-    private Integer imageId;
+//    private Integer imageId;
 
     public ProductResponse(){}
 
@@ -20,7 +20,7 @@ public class ProductResponse {
         this.productPrice = productPrice;
         this.productQuantity = productQuantity;
         this.categoryId = categoryId;
-        this.imageId = imageId;
+//        this.imageId = imageId;
     }
 
     public Integer getProductId() {
@@ -71,13 +71,13 @@ public class ProductResponse {
         this.categoryId = categoryId;
     }
 
-    public Integer getImageId() {
-        return imageId;
-    }
+//    public Integer getImageId() {
+//        return imageId;
+//    }
 
-    public void setImageId(Integer imageId) {
-        this.imageId = imageId;
-    }
+//    public void setImageId(Integer imageId) {
+//        this.imageId = imageId;
+//    }
 
     @Override
     public String toString() {
@@ -88,7 +88,7 @@ public class ProductResponse {
                 ", productPrice=" + productPrice +
                 ", productQuantity=" + productQuantity +
                 ", categoryId=" + categoryId +
-                ", imageId=" + imageId +
+//                ", imageId=" + imageId +
                 '}';
     }
 }
