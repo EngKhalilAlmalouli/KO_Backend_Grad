@@ -20,7 +20,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
-    private final OrderRepository orderRepository; ;
+    private final OrderRepository orderRepository;
+    ;
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
 
@@ -48,16 +49,14 @@ public class OrderService {
 
     // getOrdersByCustomerId
 
-    public List<OrderResponse> getOrdersByCustomerId(Integer customerId) {
-        List<Order> orders = orderRepository.findByCustomerId(customerId);
-        return orders.stream().map(this::mapToResponse).collect(Collectors.toList());
-    }
+//    public List<OrderResponse> getOrdersByCustomerId(Integer id) {
+////        List<Order> orders = orderRepository.findByCustomerId(customerId);
+//        return orderRepository.findById(id);
+//    }
 
     // createOrder
     public OrderResponse createOrder(OrderRequest request) {
 
-        Customer customer = customerRepository.findById(request.getCustomerId())
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
 
         Product product = productRepository.findById(request.getProductId())
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -65,15 +64,12 @@ public class OrderService {
         validator.validate(request);
         Order order = new Order();
         order.setQuantity(request.getOrderQuantity());
-        order.setTotal(request.getOrderTotal());
-        order.setSubTotal(request.getOrderSubTotal());
-        order.setStatus(request.getOrderStatus());
+
         order.setShippingAddress(request.getOrderShippingAddress());
-        order.setTotalPrice(request.getOrderTotalPrice());
-        order.setCreateAt(request.getOrderCreateAt());
-        order.setUpdateAt(request.getOrderUpdateAt());
-        order.setCustomer(customer);
-        order.setProduct(product);
+
+        List<Product> products = new ArrayList<>();
+        products.add(product);
+        order.setProducts(products);
 
 
         orderRepository.save(order);
@@ -85,23 +81,14 @@ public class OrderService {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        Customer customer = customerRepository.findById(request.getCustomerId())
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
 
         validator.validate(request);
 
         order.setQuantity(request.getOrderQuantity());
-        order.setTotal(request.getOrderTotal());
-        order.setSubTotal(request.getOrderSubTotal());
-        order.setStatus(request.getOrderStatus());
         order.setShippingAddress(request.getOrderShippingAddress());
-        order.setTotalPrice(request.getOrderTotalPrice());
-        order.setCreateAt(request.getOrderCreateAt());
-        order.setUpdateAt(request.getOrderUpdateAt());
-        order.setCustomer(customer);
 
 
-        order =orderRepository.save(order);
+        order = orderRepository.save(order);
         return mapToResponse(order);
     }
 
@@ -120,15 +107,7 @@ public class OrderService {
         OrderResponse response = new OrderResponse();
         response.setOrderId(order.getId());
         response.setOrderQuantity(order.getQuantity());
-        response.setOrderStatus(order.getStatus());
-        response.setOrderTotal(order.getTotal());
-        response.setOrderSubTotal(order.getSubTotal());
-        response.setOrderShippingAddress(order.getShippingAddress());
-        response.setOrderCreateAt(order.getCreateAt());
-        response.setOrderUpdateAt(order.getUpdateAt());
-        response.setOrderTotalPrice(order.getTotalPrice());
-        response.setCustomerId(order.getCustomer().getId());
-        response.setProductId(order.getProduct().getId());
+        response.setProductId(order.getProducts().get(0).getId());
 
 
         return response;

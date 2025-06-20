@@ -1,34 +1,36 @@
-//package com.example.ko_app.Security.Confing;
-//
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.cors.CorsConfiguration;
-//import org.springframework.web.cors.CorsConfigurationSource;
-//import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-//import org.springframework.web.filter.CorsFilter;
-//
-//import java.util.Arrays;
-//
-//@Configuration
-//public class CorsConfig {
-//
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        return new CorsFilter(request -> {
-//            CorsConfiguration config = new CorsConfiguration();
-//
-//            String origin = request.getHeader("Origin");
-//            if (origin != null && origin.matches("http://localhost(:\\d+)?")) {
-//                // Allow the exact localhost origin with any port
-//                config.setAllowedOrigins(Arrays.asList(origin));
-//            }
-//            // Optionally add other allowed origins here if needed
-//
-//            config.addAllowedHeader("*");
-//            config.addAllowedMethod("*");
-//            config.setAllowCredentials(true);
-//
-//            return config;
-//        });
-//    }
-//}
+package com.example.ko_app.Security.Confing;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.List;
+
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOriginPattern("*");
+
+        // السماح بكل الرؤوس
+        config.addAllowedHeader("*");
+
+        // السماح بكل الطرق (GET, POST, PUT, DELETE...)
+        config.addAllowedMethod("*");
+
+        // السماح بإرسال الكوكيز أو Authorization headers
+        config.setAllowCredentials(true);
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsFilter(source);
+    }
+}

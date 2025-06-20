@@ -1,11 +1,10 @@
+
 package com.example.ko_app.Security.User;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-//import javax.management.relation.Role;
-import com.example.ko_app.Security.User.Role;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +32,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    //constructor
     public User() {
     }
 
@@ -45,9 +43,6 @@ public class User implements UserDetails {
         this.password = password;
         this.role = role;
     }
-
-    //Get Set
-
 
     public Integer getId() {
         return id;
@@ -93,9 +88,6 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    // toString
-
-
     @Override
     public String toString() {
         return "User{" +
@@ -108,11 +100,9 @@ public class User implements UserDetails {
                 '}';
     }
 
-    // ==== UserDetails Implementation ====
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
@@ -144,7 +134,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-
 }
-

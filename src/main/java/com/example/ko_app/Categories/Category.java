@@ -2,6 +2,7 @@ package com.example.ko_app.Categories;
 
 import com.example.ko_app.Products.Product;
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
-    @Column(name = "category_description")
+    @Column(name = "category_description", length = 1000)
     private String categoryDescription;
 
 

@@ -20,7 +20,7 @@ public class Customer {
             allocationSize = 1
 
     )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "customer_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id")
     private Integer id;
 
     @Column(name = "customer_firstName")
@@ -49,9 +49,6 @@ public class Customer {
 
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Order> orders = new ArrayList<>();
-
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Point> points = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -61,9 +58,10 @@ public class Customer {
     private List<Review> reviews = new ArrayList<>();
 
 
-    public Customer() {}
+    public Customer() {
+    }
 
-    public Customer(Integer id, String firstName, String lastName, String userName, String address, String phone, String email, String password, String image, List<Order> orders, List<Point> points, List<Report> reports, List<Review> reviews) {
+    public Customer(Integer id, String firstName, String lastName, String userName, String address, String phone, String email, String password, String image, List<Point> points, List<Report> reports, List<Review> reviews) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -73,7 +71,6 @@ public class Customer {
         this.email = email;
         this.password = password;
         this.image = image;
-        this.orders = orders;
         this.points = points;
         this.reports = reports;
         this.reviews = reviews;
@@ -151,14 +148,6 @@ public class Customer {
         this.image = image;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
     public List<Point> getPoints() {
         return points;
     }
@@ -181,6 +170,24 @@ public class Customer {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", image='" + image + '\'' +
+                ", points=" + points +
+                ", reports=" + reports +
+                ", reviews=" + reviews +
+                '}';
     }
 }
 

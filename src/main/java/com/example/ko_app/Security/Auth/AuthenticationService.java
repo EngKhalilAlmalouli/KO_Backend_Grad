@@ -25,35 +25,87 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public AuthenticationResponse register(RegisterRequest request) {
-        User user = new User();
-        user.setFirstname(request.getFirstname());
-        user.setLastname(request.getLastname());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setEmail(request.getEmail());
-        userRepository.save(user);
+//    public AuthenticationResponse register(RegisterRequest request) {
+//        User user = new User();
+//        user.setFirstname(request.getFirstname());
+//        user.setLastname(request.getLastname());
+//        user.setPassword(passwordEncoder.encode(request.getPassword()));
+//        user.setEmail(request.getEmail());
+//        user.setRole(Role.CUSTOMER);
+//
+//        userRepository.save(user);
+//
+//
+//        String token = jwtService.generateToken(user);
+//        return AuthenticationResponse.builder()
+//                .token(token)
+//                .build();
+//
+//    }
+public AuthenticationResponse register(RegisterRequest request) {
+    User user = new User();
+    user.setFirstname(request.getFirstname());
+    user.setLastname(request.getLastname());
+    user.setPassword(passwordEncoder.encode(request.getPassword()));
+    user.setEmail(request.getEmail());
+    user.setRole(Role.CUSTOMER);
 
+    userRepository.save(user);
 
-        String token = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(token)
-                .build();
+    String token = jwtService.generateToken(user);
 
-    }
+    UserResponse userResponse = new UserResponse(
+            user.getId(),
+            user.getFirstname(),
+            user.getLastname(),
+            user.getEmail()
+    );
 
-    public AuthenticationResponse login(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        String token = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(token)
-                .build();
+    return AuthenticationResponse.builder()
+            .token(token)
+            .user(userResponse)
+            .build();
+}
 
-    }
+//    public AuthenticationResponse login(AuthenticationRequest request) {
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        request.getEmail(),
+//                        request.getPassword()
+//                )
+//        );
+//        User user = userRepository.findByEmail(request.getEmail())
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//        String token = jwtService.generateToken(user);
+//        return AuthenticationResponse.builder()
+//                .token(token)
+//                .build();
+//
+//    }
+public AuthenticationResponse login(AuthenticationRequest request) {
+    authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                    request.getEmail(),
+                    request.getPassword()
+            )
+    );
+
+    User user = userRepository.findByEmail(request.getEmail())
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+    String token = jwtService.generateToken(user);
+
+    UserResponse userResponse = new UserResponse(
+            user.getId(),
+            user.getFirstname(),
+            user.getLastname(),
+            user.getEmail()
+    );
+
+    return AuthenticationResponse.builder()
+            .token(token)
+            .user(userResponse)
+            .build();
+}
+
 }

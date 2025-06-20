@@ -39,13 +39,12 @@ public class CustomerResponse {
     private String phoneNumber;
     private String address;
     private String image;
-    private List<Order> orders;
 
     // Default constructor
     public CustomerResponse() {
     }
 
-    public CustomerResponse(Integer customerId, String username, String firstName, String lastName, String email, String password, String phoneNumber, String address, String image, List<Order> orders) {
+    public CustomerResponse(Integer customerId, String username, String firstName, String lastName, String email, String password, String phoneNumber, String address, String image) {
         this.customerId = customerId;
         this.username = username;
         this.firstName = firstName;
@@ -55,7 +54,6 @@ public class CustomerResponse {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.image = image;
-        this.orders = orders;
     }
 
     public Integer getCustomerId() {
@@ -130,14 +128,6 @@ public class CustomerResponse {
         this.image = image;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
     @Override
     public String toString() {
         return "CustomerResponse{" +
@@ -150,7 +140,6 @@ public class CustomerResponse {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", image='" + image + '\'' +
-                ", orders=" + orders +
                 '}';
     }
 }
