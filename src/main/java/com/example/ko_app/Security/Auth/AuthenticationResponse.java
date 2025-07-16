@@ -1,8 +1,13 @@
 package com.example.ko_app.Security.Auth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AuthenticationResponse {
 
+    @JsonProperty("token")
     private String token;
+//
+    @JsonProperty("user")
     private UserResponse user;
 
 

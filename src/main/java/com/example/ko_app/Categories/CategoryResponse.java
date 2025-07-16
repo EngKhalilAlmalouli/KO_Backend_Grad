@@ -1,18 +1,21 @@
 package com.example.ko_app.Categories;
 
 public class CategoryResponse {
-
     private Integer category_id;
     private String categoryName;
     private String categoryDescription;
 
+    // Default constructor
     public CategoryResponse() {}
+
+    // Constructor for initializing fields
     public CategoryResponse(Integer category_id, String categoryName, String categoryDescription) {
         this.category_id = category_id;
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
     }
 
+    // Getters and Setters
     public Integer getCategory_id() {
         return category_id;
     }

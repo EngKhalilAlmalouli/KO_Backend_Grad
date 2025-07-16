@@ -1,12 +1,7 @@
 package com.example.ko_app.Order;
 
 import com.example.ko_app.Configruration.NotFoundInDatabaseException;
-import com.example.ko_app.Customer.Customer;
 import com.example.ko_app.Customer.CustomerRepository;
-import com.example.ko_app.Point.Point;
-import com.example.ko_app.Point.PointRepository;
-import com.example.ko_app.Point.PointRequest;
-import com.example.ko_app.Point.PointResponse;
 import com.example.ko_app.Products.Product;
 import com.example.ko_app.Products.ProductRepository;
 import com.example.ko_app.validation.ObjectValidator;
@@ -36,7 +31,7 @@ public class OrderService {
         this.validator = validator;
     }
 
-    public List<?> getAllOrder() {
+    public List<OrderResponse> getAllOrder() {
         return orderRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 

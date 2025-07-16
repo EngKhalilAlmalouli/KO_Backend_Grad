@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,28 +20,31 @@ public class CategoryService {
         this.validator = validator;
     }
 
-    public List<?> getAllCategories() {
-        return categoryRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
+    // Get all categories and map to CategoryResponse
+    public List<CategoryResponse> getAllCategories() {
+        return categoryRepository.findAll().stream()
+                .map(this::mapToResponse) // Mapping Category -> CategoryResponse
+                .collect(Collectors.toList());
     }
-    // getCategoryById
+
+    // Get category by id and map to CategoryResponse
     public CategoryResponse getCategoryById(Integer id) {
         return categoryRepository.findById(id)
-                .map(this::mapToResponse)
+                .map(this::mapToResponse) // Mapping Category -> CategoryResponse
                 .orElseThrow(() -> new RuntimeException("Category not found"));
     }
 
-    // createCategory
+    // Create category and return CategoryResponse
     public CategoryResponse createCategory(CategoryRequest request) {
-        validator.validate(request);
+        validator.validate(request);  // Validate request
         Category category = new Category();
         category.setCategoryName(request.getCategoryName());
         category.setCategoryDescription(request.getCategoryDescription());
         category = categoryRepository.save(category);
         return mapToResponse(category);
-
     }
 
-    // updateCategory
+    // Update category and return CategoryResponse
     public CategoryResponse updateCategory(Integer id, CategoryRequest request) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
@@ -54,23 +56,21 @@ public class CategoryService {
         return mapToResponse(category);
     }
 
-    // deleteCategory
+    // Delete category and return response
     public ResponseEntity<?> deleteCategory(Integer id) throws NotFoundInDatabaseException {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new NotFoundInDatabaseException("Category not found"));
 
-        categoryRepository.delete(category); // Ensure the customer is actually deleted
+        categoryRepository.delete(category);
         return ResponseEntity.status(HttpStatus.OK).body("Category deleted successfully");
     }
 
-
-    // mapToResponse
+    // Mapping method for Category to CategoryResponse
     private CategoryResponse mapToResponse(Category category) {
-       // List<Integer> categoryIds = new ArrayList<>();
         CategoryResponse response = new CategoryResponse();
-        response.setCategoryName(category.getCategoryName());
-        response.setCategoryDescription(category.getCategoryDescription());
-        response.setCategory_id(category.getId());
+        response.setCategory_id(category.getId());  // Map category ID to response
+        response.setCategoryName(category.getCategoryName());  // Map category name
+        response.setCategoryDescription(category.getCategoryDescription());  // Map category description
         return response;
     }
 }

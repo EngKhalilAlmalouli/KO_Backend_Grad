@@ -5,9 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/api/category")
 public class CategoryController {
+
     private final CategoryService categoryService;
 
     // Constructor for dependency injection
@@ -15,29 +17,41 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    // Fetch all categories and wrap them in CategoryListResponse
     @GetMapping
-    public ResponseEntity<List<?>> getAllCategories() throws NotFoundInDatabaseException {
-        return ResponseEntity.ok(categoryService.getAllCategories());
+    public ResponseEntity<CategoryListResponse> getAllCategories() throws NotFoundInDatabaseException {
+        List<CategoryResponse> categoryResponseList = categoryService.getAllCategories();
+
+        // Wrap the list inside CategoryListResponse and return
+        CategoryListResponse categoryListResponse = new CategoryListResponse(categoryResponseList);
+        return ResponseEntity.ok(categoryListResponse);
     }
 
+    // Get a specific category by id
     @GetMapping("/{id}")
-    public CategoryResponse getCategoryById(@PathVariable Integer id) {
-        return categoryService.getCategoryById(id);
+    public ResponseEntity<CategoryResponse> getCategoryById(@PathVariable Integer id) {
+        CategoryResponse categoryResponse = categoryService.getCategoryById(id);
+        return ResponseEntity.ok(categoryResponse);
     }
 
+    // Create a new category
     @PostMapping
-    public CategoryResponse createCategory(@RequestBody CategoryRequest request) {
-        return categoryService.createCategory(request);
+    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CategoryRequest request) {
+        CategoryResponse categoryResponse = categoryService.createCategory(request);
+        return ResponseEntity.status(201).body(categoryResponse);  // Return with status 201 Created
     }
 
+    // Update an existing category
     @PutMapping("/{id}")
-    public CategoryResponse updateCategory(@PathVariable Integer id, @RequestBody CategoryRequest request) {
-        return categoryService.updateCategory(id, request);
+    public ResponseEntity<CategoryResponse> updateCategory(@PathVariable Integer id, @RequestBody CategoryRequest request) {
+        CategoryResponse categoryResponse = categoryService.updateCategory(id, request);
+        return ResponseEntity.ok(categoryResponse);
     }
 
+    // Delete a category by id
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Integer id) throws NotFoundInDatabaseException {
-        return categoryService.deleteCategory(id);
+    public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) throws NotFoundInDatabaseException {
+        categoryService.deleteCategory(id);
+        return ResponseEntity.noContent().build();  // No content status for successful deletion
     }
 }
-

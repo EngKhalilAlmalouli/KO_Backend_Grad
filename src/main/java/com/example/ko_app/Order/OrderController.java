@@ -18,14 +18,21 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<?>> getAllOrder() {
-        return ResponseEntity.ok(orderService.getAllOrder());
-    }
+    public ResponseEntity<OrderListResponse> getAllOrder() throws NotFoundInDatabaseException {
+        List<OrderResponse> orderResponseList = orderService.getAllOrder();
 
-//    @GetMapping("/customer/{customerId}")
-//    public ResponseEntity<List<OrderResponse>> getOrdersByCustomer(@PathVariable Integer customerId) {
-//        return ResponseEntity.ok(orderService.getOrdersByCustomerId(customerId));
+        OrderListResponse orderListResponse = new OrderListResponse(orderResponseList);
+        return ResponseEntity.ok(orderListResponse);
+    }
+//    @GetMapping
+//    public ResponseEntity<CategoryListResponse> getAllCategories() throws NotFoundInDatabaseException {
+//        List<CategoryResponse> categoryResponseList = categoryService.getAllCategories();
+//
+//        // Wrap the list inside CategoryListResponse and return
+//        CategoryListResponse categoryListResponse = new CategoryListResponse(categoryResponseList);
+//        return ResponseEntity.ok(categoryListResponse);
 //    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> getById(@PathVariable Integer id) {
